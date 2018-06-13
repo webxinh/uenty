@@ -1,0 +1,50 @@
+
+d-i: data id element
+d-u: data url
+
+
+.pjb	: pjax button o trang chu
+.ca	: check all
+.cas	: check all select view index
+.sy	: summary (hien thi 5 - 10 trong 100)
+
+.ml	: An/Hien thi
+
+#mb+...	: 
+#mbsanpham modal id
+#mb+...+r: 
+#mbsanphamr modal id recycle
+.mb	: class modal button
+
+
+#pj+... : pjax + controller trang con
+.pj	: la class cua no
+#pjsanpham : pjax san pham
+
+
+#pjr+... : pjax recycle + controller trang con
+.pj	: la class cua no
+#pjrsanpham : pjax recycle san pham
+
+
+#pj+...+u : pjax san pham url
+#pjsanphamu : pjax url san pham
+
+
+#gr+...	:gridview 
+#grsanpham: gridview san pham
+.gr	: class gridview
+
+
+#grr+...:gridview recycle
+#grrsanpham: gridview recycle san pham
+.gr	: class gridview
+
+
+#bra+...: button recycle all
+#brasanpham: san pham
+
+.br	: button recycle tung ban ghi trong index
+
+.be	: button restore tung ban ghi trong recycle index
+.bd	: button delete tung ban ghi trong recycle index

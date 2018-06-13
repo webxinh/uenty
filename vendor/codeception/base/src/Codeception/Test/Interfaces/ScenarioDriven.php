@@ -1,0 +1,18 @@
+<?php
+namespace Codeception\Test\Interfaces;
+
+use Codeception\Step;
+
+interface ScenarioDriven
+{
+    public function getFeature();
+
+    
+    public function getScenario();
+
+    public function getScenarioText($format = 'text');
+
+    public function preload();
+
+    public function getSourceCode();
+}

@@ -1,0 +1,16 @@
+<?php
+/*
+ * This file is part of PHPUnit.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+
+interface PHPUnit_Framework_Test extends Countable
+{
+    
+    public function run(PHPUnit_Framework_TestResult $result = null);
+}
