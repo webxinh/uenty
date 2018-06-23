@@ -37,3 +37,4 @@ phpunit.phar
 /.phpintel/
 /ad/assets/
 /assets/
+/uploads/

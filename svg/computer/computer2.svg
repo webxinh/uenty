@@ -1,48 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 89.471 89.471" style="enable-background:new 0 0 89.471 89.471;" xml:space="preserve">
-<g>
-	<g>
-		<g>
-			<path style="fill:#010002;" d="M67.998,0H21.473c-1.968,0-3.579,1.61-3.579,3.579v82.314c0,1.968,1.61,3.579,3.579,3.579h46.525
-				c1.968,0,3.579-1.61,3.579-3.579V3.579C71.577,1.61,69.967,0,67.998,0z M44.736,65.811c-2.963,0-5.368-2.409-5.368-5.368
-				c0-2.963,2.405-5.368,5.368-5.368c2.963,0,5.368,2.405,5.368,5.368C50.104,63.403,47.699,65.811,44.736,65.811z M64.419,39.704
-				H25.052v-1.789h39.367V39.704z M64.419,28.967H25.052v-1.789h39.367V28.967z M64.419,17.336H25.052V6.599h39.367V17.336z"/>
-		</g>
-		<g>
-			<ellipse style="fill:#010002;" cx="59.638" cy="13.968" rx="1.789" ry="0.895"/>
-		</g>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+	 viewBox="0 0 89.5 89.5" style="enable-background:new 0 0 89.5 89.5;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#010002;}
+</style>
+<path class="st0" d="M68,0H21.5c-2,0-3.6,1.6-3.6,3.6v82.3c0,2,1.6,3.6,3.6,3.6H68c2,0,3.6-1.6,3.6-3.6V3.6C71.6,1.6,70,0,68,0z
+	 M44.7,65.8c-3,0-5.4-2.4-5.4-5.4c0-3,2.4-5.4,5.4-5.4s5.4,2.4,5.4,5.4C50.1,63.4,47.7,65.8,44.7,65.8z M64.4,39.7H25.1v-1.8h39.4
+	V39.7z M64.4,29H25.1v-1.8h39.4V29z M64.4,17.3H25.1V6.6h39.4V17.3z"/>
 </svg>

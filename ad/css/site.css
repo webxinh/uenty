@@ -5757,6 +5757,10 @@ form div.required label.form-label:after, form div.required label.control-label:
     text-align: right;
 }
 
+.select2-selection__placeholder {
+    font-size: 13px;
+}
+
 
 .g-icon {
     width: 30px;
@@ -5916,6 +5920,7 @@ form div.required label.form-label:after, form div.required label.control-label:
 .m-27 path{
     fill:  #7e5411!important;
 }
+
 
 
 
