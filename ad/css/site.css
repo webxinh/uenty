@@ -5073,11 +5073,15 @@ a.cke-product-images, a.cke-product-images div.empty, a.cke-product-images form#
 }
 
 /*SORT IMG */
+ul#editable i.js-remove:hover,
+.editable i.js-remove:hover{
+    color: #dc0f0f;
+}
+
 ul#editable i.js-remove,
 .editable i.js-remove{
     position: absolute;
-    color: #FFF;
-    background: #555;
+    color: #a3a3a3;
     width: 15px;
     cursor: pointer;
     margin: 0 0 0 -18px;
@@ -5760,6 +5764,30 @@ form div.required label.form-label:after, form div.required label.control-label:
 .select2-selection__placeholder {
     font-size: 13px;
 }
+
+
+/* remove sp dm */
+span.spdm-remove {
+    opacity: 0.5;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+}
+span.spdm-remove:hover {
+    border-radius: 12px;
+    opacity: 1;
+    color: #d81212;
+}
+
+span.spdm-first {
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+    opacity: 0.5;
+}
+span.spdm-first:hover {opacity: 1;color: #1c69dc;}
+/*  */
+
 
 
 .g-icon {

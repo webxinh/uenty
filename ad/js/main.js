@@ -658,10 +658,12 @@ function poprecycle(idmodal = '') {
     if(idmodal != ''){
 	    setTimeout( function(){ 
 	        $('#'+idmodal).modal('hide');
+	        unloadimg();
 	    }, 500);
 	    
 	    setTimeout( function(){ 
 	         $('#'+idmodal+'.modal-body div').html('');
+	         unloadimg();
 	    }, 1000);
 	}
 
@@ -681,6 +683,7 @@ function popthanhcong(ten,idmodal) {
 	});    
     setTimeout( function(){ 
         $(idmodal).modal('hide');
+        unloadimg();
     }, 500)
     // setTimeout( function(){ 
     //     unloadimg();
@@ -690,7 +693,7 @@ function popthanhcong(ten,idmodal) {
     setTimeout( function(){    	
     	if(idmodal != '#'){
          	$(idmodal+' .modal-body div').html('');
-
+         	unloadimg();
     	}
     }, 1000) 
 }

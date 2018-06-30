@@ -172,7 +172,8 @@ public static function _dir_icon($s = '')
 
 public static function _dulieu($controller='',$id = '',$type = 'array')
 {		
-	$s = $controller . $id . Cauhinh::template();
+	// $s = $controller . $id . Cauhinh::template();
+	$s = $controller . $id;
 	$cache = Aabc::$app->dulieu;
 
 	if($controller == 'spnn'){
@@ -180,6 +181,7 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 	}
 
 	$return = $cache->get($s);//Lấy từ cache ra
+
 	if(empty($return)){//Rỗng
 		//Thử tìm trong csdl
 		if($controller == 'cauhinh'){
