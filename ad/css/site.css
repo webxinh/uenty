@@ -5103,6 +5103,15 @@ ul#editable.imgcove,
     margin-top: 220px;
 }
 
+ul#editable.imgdd{text-align: center;}
+ul#editable.imgdd li{
+    float:none;
+}
+ul#editable.imgdd img {
+    padding: 10px;
+    border: 2px dashed #ddd;
+}
+
 ul#editable li,
 .editable li {
     float: left;
@@ -5114,8 +5123,8 @@ ul#editable li,
 ul#editable img,
 .editable img {
     cursor: move;
-    width: 75px;
-    height: 75px;
+    /* width: 75px; */
+    /* height: 75px; */
     border: 1px solid #ddd;
 }
 
@@ -5562,23 +5571,25 @@ legend {
 
 
 
-#imgcove:before{
+#imgcove>div.mb{
     content: "";
     position: absolute;
     width: 310px;
     top: 1px;
     left: calc((100% - 310px ) /2);
-    height: 210px;
+    height: 230px;
     border: 2px dashed #c1bfbf;
+    cursor: pointer;
 }
 
 #imgcove {
     text-align: center;
     width: 100%;
-    min-height: 210px;
+    min-height: 231px;
     position: absolute;
     top: 0;
     z-index: 8;
+    padding: 10px;
 }
 
 #imgcove img {
@@ -5753,7 +5764,7 @@ form div.required label.form-label:after, form div.required label.control-label:
     position: absolute;
     background: #eee;
     z-index: 99;
-    width: calc(100% - 20px);
+    width: calc(100% - 0px);
     padding: 10px;
     top: 35px;
     left: 0;

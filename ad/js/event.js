@@ -20,9 +20,9 @@ $(document).on('DOMSubtreeModified', "#editable", function(){
     var link = $(imgfirst).attr('src');
     if(typeof link !== 'undefined'){
         link = link.replace('thumb/75/75/','uploads/');
-        $('#imgcove').html('<img src="'+link+'">');
+        $('#imgcove>.image').html('<img src="'+link+'">');
     }else{
-        $('#imgcove').html('');
+        $('#imgcove>.image').html('');
     }
 });
 
