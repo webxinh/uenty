@@ -1,4 +1,14 @@
+//Thêm album ảnh vào sản phẩm
+$(document).on('click','.add-album',function(){
+    addimg(event.target,this);
+})
 
+//Xóa album ảnh sản pphaarm
+$(document).on('click','.del-album',function(){
+    if(confirm('Bạn muốn xóa album ảnh này?')){
+        $(this).parents('.l-album').remove()
+    }
+})
 
 
 //Chọn màu icon

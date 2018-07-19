@@ -1,3 +1,21 @@
+function addimg(e, current){
+    current = $(current)
+    var url = current.attr(d_i) + '/' + current.attr(d_u)
+    $.ajax({
+        cache:false,
+        type: 'POST',
+        url: url,
+        success:function(data){
+            $('#tab_anh .list-album').append(data)
+        },
+        error:function(data){
+
+        }
+    })
+}
+
+
+
 function lvt(current) {    
     di = $(current).attr(d_i);
     if(typeof di !== 'undefined'){ 
@@ -63,13 +81,16 @@ function cicon(obj){
 }
 
 function ca(obj){   
-    data_e = $(obj).attr('data-e');
+    var data_e = $(obj).attr('data-e');
+
+    var selected_product_image = $("#"+data_e).parent().find(".selected-product-image")
 
     if(typeof data_e === 'undefined'){
         data_e = 'editable';
     }
 
     selectedSrc = $(".selected-product-image").find("input").val();
+    $(".selected-product-image").find("input").val('');
 
     if(isEmpty(selectedSrc)){
         return false
@@ -78,16 +99,21 @@ function ca(obj){
     sources = selectedSrc.split(","); 
     max = 0;
     checkone = 0;
-    if($(".selected-product-image").hasClass('one')){
+    if(selected_product_image.hasClass('one')){
         checkone = 1;
         max = 1;
     }else{
         max = sources.length;    
     } 
 
-    dt_n = $(".selected-product-image").attr('dt-n')
+    dt_n = selected_product_image.attr('dt-n') //Name post tùy biến
     if(typeof dt_n !== 'undefined'){
-        name_img = dt_n
+        if(selected_product_image.hasClass('one')){
+            name_img = dt_n    
+        }else{
+            name_img = dt_n+'[]'
+        }
+        
     }else{
         name_img = d_postimg+'[]'
     }
@@ -106,7 +132,7 @@ function ca(obj){
             }
         }
     };        
-    $(".selected-product-image").find("input").val('');
+    // selected_product_image.find("input").val('');
 }
 
 function chicon(obj){    
@@ -141,7 +167,7 @@ function chimg(obj){
     $(".selected-product-image").find("input").val(selectedSrc);
 
     selectedSrc = $(".selected-product-image").find("input").val();
-    
+
     if(selectedSrc == ''){
         $('.cke_dialog_title').html('Bạn chưa chọn ảnh nào');
         $('.gmisct').html('Bạn chưa chọn ảnh nào');
