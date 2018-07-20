@@ -1,3 +1,39 @@
+
+
+function addpbsp_option(e, current){
+    current = $(current)
+    parent = current.parent()
+    var url = current.attr(d_i) + '/' + current.attr(d_u)
+    $.ajax({
+        cache:false,
+        type: 'POST',
+        url: url,
+        success:function(data){
+            parent.find('.fill').append(data)
+        },
+        error:function(data){
+
+        }
+    })
+}
+
+
+function addpbsp(e, current){
+    current = $(current)
+    var url = current.attr(d_i) + '/' + current.attr(d_u)
+    $.ajax({
+        cache:false,
+        type: 'POST',
+        url: url,
+        success:function(data){
+            $('#list-pbsp').append(data)
+        },
+        error:function(data){
+
+        }
+    })
+}
+
 function addimg(e, current){
     current = $(current)
     var url = current.attr(d_i) + '/' + current.attr(d_u)

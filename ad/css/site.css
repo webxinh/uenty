@@ -25,7 +25,9 @@ html, body {
     text-transform: uppercase;
     font-weight: 600;
 }
-
+.row{
+    padding: 0;
+}
 footer {
     /*height: 60px;*/
     /*background-color: #f5f5f5;

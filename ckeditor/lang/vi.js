@@ -157,7 +157,7 @@ CKEDITOR.lang['vi'] = {
     },
     preview : 
     {
-    	preview : 'Xem trước'
+    	preview : 'Xem trước' //Đây
     },
     pastetext : 
     {

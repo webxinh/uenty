@@ -1,3 +1,34 @@
+
+
+
+//Thêm option
+$(document).on('click','.add-pbsp-option',function(){
+    addpbsp_option(event.target,this);
+})
+//Xóa thông số phiên bản sp
+$(document).on('click','.del-pbsp-option',function(){
+    if(confirm('Bạn muốn xóa option này?')){
+        $(this).parents('.l-option').remove()
+    }
+})
+
+//Thêm thông số pbsp
+$(document).on('click','.add-pbsp',function(){
+    addpbsp(event.target,this);
+})
+
+//Xóa thông số phiên bản sp
+$(document).on('click','.del-pbsp',function(){
+    if(confirm('Bạn muốn xóa thông số này?')){
+        $(this).parents('.l-pbsp').remove()
+    }
+})
+
+
+
+
+
+
 //Thêm album ảnh vào sản phẩm
 $(document).on('click','.add-album',function(){
     addimg(event.target,this);
