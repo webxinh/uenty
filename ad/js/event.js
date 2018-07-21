@@ -1,4 +1,10 @@
 
+//Xóa tiền tệ
+$(document).on('click','.tttg-remove',function(){
+    $(this).parents('.tttg-one').remove()
+})
+
+
 
 
 //Thêm option
