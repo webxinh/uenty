@@ -35,6 +35,7 @@ class Generator extends \aabc\gii\Generator
     public $queryBaseClass = 'aabc\db\ActiveQuery';
 
 
+
     
     public function getName()
     {
@@ -183,7 +184,7 @@ class Generator extends \aabc\gii\Generator
                 'queryClassName' => $queryClassName,
                 'tableSchema' => $tableSchema,
                 'labels' => $this->generateLabels($tableSchema),
-                'rules' => $this->generateRules($tableSchema),
+                'rules' => $this->generateRules($tableSchema,strtolower($modelClassName)),
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
             ];
             $files[] = new CodeFile(
@@ -227,7 +228,7 @@ class Generator extends \aabc\gii\Generator
     }
 
     
-    public function generateRules($table)
+    public function generateRules($table,$tableName)
     {
         $types = [];
         $lengths = [];
@@ -269,10 +270,10 @@ class Generator extends \aabc\gii\Generator
         }
         $rules = [];
         foreach ($types as $type => $columns) {
-            $rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
+            $rules[] = "[[_".strtoupper($tableName)."::" . implode(", _".strtoupper($tableName)."::" , $columns) . "], '$type']";
         }
         foreach ($lengths as $length => $columns) {
-            $rules[] = "[['" . implode("', '", $columns) . "'], 'string', 'max' => $length]";
+            $rules[] = "[[_".strtoupper($tableName)."::" . implode(", _".strtoupper($tableName)."::" , $columns) . "], 'string', 'max' => $length]";
         }
 
         $db = $this->getDbConnection();
@@ -308,15 +309,21 @@ class Generator extends \aabc\gii\Generator
                 continue;
             }
             $refClassName = $this->generateClassName($refTable);
+
+            $refClassName00 = '(_'.strtoupper($this->generateClassName($refTable)). '::M)';
+            
+
+
             unset($refs[0]);
             $attributes = implode("', '", array_keys($refs));
             $targetAttributes = [];
             foreach ($refs as $key => $value) {
-                $targetAttributes[] = "'$key' => '$value'";
+                $targetAttributes[] = '_'.strtoupper($tableName)."::$key => _".strtoupper($refClassName)."::$value";
             }
             $targetAttributes = implode(', ', $targetAttributes);
-            $rules[] = "[['$attributes'], 'exist', 'skipOnError' => true, 'targetClass' => $refClassName::className(), 'targetAttribute' => [$targetAttributes]]";
+            $rules[] = "[[_".strtoupper($tableName)."::$attributes], 'exist', 'skipOnError' => true, 'targetClass' => $refClassName00::className(), 'targetAttribute' => [$targetAttributes]]";
         }
+
 
         return $rules;
     }
@@ -333,26 +340,44 @@ class Generator extends \aabc\gii\Generator
             unset($firstKey[0], $secondKey[0]);
             $className0 = $this->generateClassName($table0);
             $className1 = $this->generateClassName($table1);
+            
+            $className01 = '(_'.strtoupper($this->generateClassName($table0)).'::M)';
+
+           
+            $className11 = '(_'.strtoupper($this->generateClassName($table1)).'::M)';
+
+
             $table0Schema = $db->getTableSchema($table0);
             $table1Schema = $db->getTableSchema($table1);
 
-            $link = $this->generateRelationLink(array_flip($secondKey));
-            $viaLink = $this->generateRelationLink($firstKey);
+
+            $tablenamemany = $table->name;
+            $tablenamemany = str_replace('db_','',$tablenamemany);
+            $tablenamemany = str_replace('_','',$tablenamemany);
+
+
+
+
+            $link = $this->generateRelationLink(array_flip($secondKey),$className1,$tablenamemany);
+            $viaLink = $this->generateRelationLink($firstKey,$tablenamemany,$className0);
+
             $relationName = $this->generateRelationName($relations, $table0Schema, key($secondKey), true);
             $relations[$table0Schema->fullName][$relationName] = [
-                "return \$this->hasMany($className1::className(), $link)->viaTable('"
-                . $this->generateTableName($table->name) . "', $viaLink);",
-                $className1,
+                "return \$this->hasMany($className11::className(), $link)->viaTable(_"
+                . strtoupper($tablenamemany) . "::table, $viaLink);",
+                $className11,
                 true,
             ];
 
-            $link = $this->generateRelationLink(array_flip($firstKey));
-            $viaLink = $this->generateRelationLink($secondKey);
+            $link = $this->generateRelationLink(array_flip($firstKey),$className0,$tablenamemany);
+            $viaLink = $this->generateRelationLink($secondKey,$tablenamemany,$className1);
+
             $relationName = $this->generateRelationName($relations, $table1Schema, key($firstKey), true);
+
             $relations[$table1Schema->fullName][$relationName] = [
-                "return \$this->hasMany($className0::className(), $link)->viaTable('"
-                . $this->generateTableName($table->name) . "', $viaLink);",
-                $className0,
+                "return \$this->hasMany($className01::className(), $link)->viaTable(_"
+                . strtoupper($tablenamemany) . "::table, $viaLink);",
+                $className01,
                 true,
             ];
         }
@@ -395,6 +420,10 @@ class Generator extends \aabc\gii\Generator
         foreach ($this->getSchemaNames() as $schemaName) {
             foreach ($db->getSchema()->getTableSchemas($schemaName) as $table) {
                 $className = $this->generateClassName($table->fullName);
+                $className_01 = '(_'.strtoupper($className).'::M)';
+
+
+
                 foreach ($table->foreignKeys as $refs) {
                     $refTable = $refs[0];
                     $refTableSchema = $db->getTableSchema($refTable);
@@ -404,24 +433,27 @@ class Generator extends \aabc\gii\Generator
                     }
                     unset($refs[0]);
                     $fks = array_keys($refs);
-                    $refClassName = $this->generateClassName($refTable);
+                    $refClassName = $this->generateClassName($refTable,$className);
+                    
+                    $refClassName01 = '(_'.strtoupper($this->generateClassName($refTable,$className)).'::M)';
+
 
                     // Add relation for this table
-                    $link = $this->generateRelationLink(array_flip($refs));
+                    $link = $this->generateRelationLink(array_flip($refs),$refClassName,$className);
                     $relationName = $this->generateRelationName($relations, $table, $fks[0], false);
                     $relations[$table->fullName][$relationName] = [
-                        "return \$this->hasOne($refClassName::className(), $link);",
-                        $refClassName,
+                        "return \$this->hasOne($refClassName01::className(), $link);",
+                        $refClassName01,
                         false,
                     ];
 
                     // Add relation for the referenced table
                     $hasMany = $this->isHasManyRelation($table, $fks);
-                    $link = $this->generateRelationLink($refs);
+                    $link = $this->generateRelationLink($refs,$className,$refClassName);
                     $relationName = $this->generateRelationName($relations, $refTableSchema, $className, $hasMany);
                     $relations[$refTableSchema->fullName][$relationName] = [
-                        "return \$this->" . ($hasMany ? 'hasMany' : 'hasOne') . "($className::className(), $link);",
-                        $className,
+                        "return \$this->" . ($hasMany ? 'hasMany' : 'hasOne') . "($className_01::className(), $link);",
+                        $className_01,
                         $hasMany,
                     ];
                 }
@@ -495,11 +527,11 @@ class Generator extends \aabc\gii\Generator
     }
 
     
-    protected function generateRelationLink($refs)
+    protected function generateRelationLink($refs,$table1,$table2)
     {
         $pairs = [];
         foreach ($refs as $a => $b) {
-            $pairs[] = "'$a' => '$b'";
+            $pairs[] = '_'.strtoupper($table1)."::$a => _".strtoupper($table2)."::$b";
         }
 
         return '[' . implode(', ', $pairs) . ']';

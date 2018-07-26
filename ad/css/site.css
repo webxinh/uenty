@@ -1107,7 +1107,7 @@ ul.menu-parent {
     padding: 10px 10px 5px 10px;
     /* border: 1px solid #ccc; */
     /* margin: 5px; */
-    height: calc(100%);
+    height: auto;
 }
 
 .endgr {
@@ -5284,7 +5284,7 @@ fieldset.ht legend {
 
 
 .ht .dnn .tab-content {
-    padding: 10px 5px 0 5px;
+    padding: 15px 5px 0 5px;
     /* border: none; */
     margin: 0 0 5px 0;
 }
@@ -5315,7 +5315,7 @@ fieldset.ht legend {
 textarea.form-control {
     /* font-weight: bold; */
     /* color: #b10e0e; */
-    font-size: 14px;
+    font-size: 12px;
     text-align: justify;
     height: 28px;
     min-height: 30px;
@@ -5690,7 +5690,8 @@ select:-webkit-autofill{
     border-color: #a78330;
 }
 
-.heg-2 .module-child {
+.heg-2 .module-child,
+.heg-2 .module-child-link {
     height: 100px;
     line-height: 100px;
 }

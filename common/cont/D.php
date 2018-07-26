@@ -3,6 +3,7 @@ namespace common\cont;
 use Aabc;
 
 class D { 
+
 public function dulieu($s = '',$type = 'array')
 {	
 	$cache = Aabc::$app->dulieu;
@@ -68,6 +69,13 @@ public function _include($s = '')
 	//Trả link file template include
 	return ROOT_PATH.'/frontend/views/template/'.self::template().'/_include/'.$s.'.php';
 }
+
+
+public function u($s){ return self::u . '=' .$s; }
+public function i($s){ return self::i . '=' .$s; }
+
+
+
 
 
 const url_dm = '1';

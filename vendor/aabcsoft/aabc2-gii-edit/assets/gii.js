@@ -1,4 +1,4 @@
-yii.gii = (function ($) {
+aabc.gii = (function ($) {
 
     var $clipboardContainer = $("#clipboard-container"),
     valueToCopy = '',

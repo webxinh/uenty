@@ -183,21 +183,21 @@ class Generator extends \aabc\gii\Generator
     }
 
     
-    public function generateActiveField($attribute,$namedi)
+    public function generateActiveField($attribute)
     {
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
-                return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)->passwordInput()";
+                return "\$form->field(\$model, '$attribute')->passwordInput()";
             } else {
-                return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)";
+                return "\$form->field(\$model, '$attribute')";
             }
         }
         $column = $tableSchema->columns[$attribute];
         if ($column->phpType === 'boolean') {
-            return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)->checkbox()";
+            return "\$form->field(\$model, '$attribute')->checkbox()";
         } elseif ($column->type === 'text') {
-            return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)->textarea(['rows' => 6])";
+            return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
         } else {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
                 $input = 'passwordInput';
@@ -206,33 +206,18 @@ class Generator extends \aabc\gii\Generator
             }
             if (is_array($column->enumValues) && count($column->enumValues) > 0) {
                 $dropDownOptions = [];
-                
-
                 foreach ($column->enumValues as $enumValue) {
                     $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
                 }
-                
-                return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)->dropDownList("
-                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).",['placeholder' => '' ,
-                        //'multiple'=>'multiple', 
-                        // Aabc::\$app->d->s => 'search', 
-                        // Aabc::\$app->d->ty => 'ra',
-                        //Aabc::\$app->d->i => Aabc::\$app->_model->__$namedi,
-                        //'class' => 'mulr',      
-                        // Aabc::\$app->d->c => 'one',                        
-                        //'id' => Aabc::\$app->_model->__".$namedi.".'_".$attribute."_select'
-                    ])";
-
-
+                return "\$form->field(\$model, '$attribute')->dropDownList("
+                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
             } elseif ($column->phpType !== 'string' || $column->size === null) {
-                return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)->$input(['placeholder' => '' ,'maxlength' => true])";
+                return "\$form->field(\$model, '$attribute')->$input()";
             } else {
-                return "\$form->field(\$model, Aabc::\$app->_".$namedi."->$attribute)->$input(['placeholder' => '' ,'maxlength' => true])";
+                return "\$form->field(\$model, '$attribute')->$input(['maxlength' => true])";
             }
         }
     }
-
-
 
     
     public function generateActiveSearchField($attribute)
@@ -268,10 +253,10 @@ class Generator extends \aabc\gii\Generator
     }
 
     
-    public function generateSearchRules($tablename)
+    public function generateSearchRules()
     {
         if (($table = $this->getTableSchema()) === false) {
-            return ["[[Aabc::\$app->_".$tablename . implode(", Aabc::\$app->_".$tablename, $this->getColumnNames()) . "], 'safe']"];
+            return ["[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"];
         }
         $types = [];
         foreach ($table->columns as $column) {
@@ -302,7 +287,7 @@ class Generator extends \aabc\gii\Generator
 
         $rules = [];
         foreach ($types as $type => $columns) {
-            $rules[] = "[[Aabc::\$app->_".$tablename . '->' . implode(", Aabc::\$app->_".$tablename. '->', $columns) . "], '$type']";
+            $rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
         }
 
         return $rules;
@@ -341,7 +326,7 @@ class Generator extends \aabc\gii\Generator
     }
 
     
-    public function generateSearchConditions($tablename)
+    public function generateSearchConditions()
     {
         $columns = [];
         if (($table = $this->getTableSchema()) === false) {
@@ -373,10 +358,10 @@ class Generator extends \aabc\gii\Generator
                 case Schema::TYPE_TIME:
                 case Schema::TYPE_DATETIME:
                 case Schema::TYPE_TIMESTAMP:
-                    $hashConditions[] = "Aabc::\$app->_".$tablename."->{$column} => \$this[Aabc::\$app->_".$tablename."->{$column}],";
+                    $hashConditions[] = "'{$column}' => \$this->{$column},";
                     break;
                 default:
-                    $likeConditions[] = "->andFilterWhere(['like', Aabc::\$app->_".$tablename."->{$column}, \$this[Aabc::\$app->_".$tablename."->{$column}]])";
+                    $likeConditions[] = "->andFilterWhere(['like', '{$column}', \$this->{$column}])";
                     break;
             }
         }
@@ -395,24 +380,24 @@ class Generator extends \aabc\gii\Generator
     }
 
     
-    public function generateUrlParams($table = '')
+    public function generateUrlParams()
     {
         /* @var $class ActiveRecord */
         $class = $this->modelClass;
         $pks = $class::primaryKey();
         if (count($pks) === 1) {
             if (is_subclass_of($class, 'aabc\mongodb\ActiveRecord')) {
-                return "'id' => (string)\$model[Aabc::\$app->_".$table."->{$pks[0]}]";
+                return "'id' => (string)\$model->{$pks[0]}";
             } else {
-                return "'id' => \$model[Aabc::\$app->_".$table."->{$pks[0]}]";
+                return "'id' => \$model->{$pks[0]}";
             }
         } else {
             $params = [];
             foreach ($pks as $pk) {
                 if (is_subclass_of($class, 'aabc\mongodb\ActiveRecord')) {
-                    $params[] = "'$pk' => (string)\$model[Aabc::\$app->_".$table."->$pk]";
+                    $params[] = "'$pk' => (string)\$model->$pk";
                 } else {
-                    $params[] = "'$pk' => \$model[Aabc::\$app->_".$table."->$pk]";
+                    $params[] = "'$pk' => \$model->$pk";
                 }
             }
 

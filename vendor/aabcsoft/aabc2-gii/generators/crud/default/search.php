@@ -12,10 +12,10 @@ $searchModelClass = StringHelper::basename($generator->searchModelClass);
 if ($modelClass === $searchModelClass) {
     $modelAlias = $modelClass . 'Model';
 }
-$rules = $generator->generateSearchRules(strtolower($modelClass));
+$rules = $generator->generateSearchRules();
 $labels = $generator->generateSearchLabels();
 $searchAttributes = $generator->getSearchAttributes();
-$searchConditions = $generator->generateSearchConditions(strtolower($modelClass));
+$searchConditions = $generator->generateSearchConditions();
 
 echo "<?php\n";
 ?>
@@ -25,7 +25,7 @@ namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?
 use Aabc;
 use aabc\base\Model;
 use aabc\data\ActiveDataProvider;
-//use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
+use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
 
 
 class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $modelClass ?>
@@ -47,16 +47,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     }
 
     
-    public function search($params) //GET
-    //public function search() //POST
+    public function search($params)
     {
-        <?php
-            $modelClass0 =  '$_'.$modelClass. ' = Aabc::$app->_model->'.$modelClass;
-            $modelClass1 =  '$_'.$modelClass;
-
-        ?>
-        <?= $modelClass0?>;
-        $query = <?= isset($modelAlias) ? $modelAlias : $modelClass1 ?>::find();
+        $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
         // add conditions that should always apply here
 
@@ -64,8 +57,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             'query' => $query,
         ]);
 
-        $this->load($params); //GET
-        //$this->load(Aabc::$app->request->post()); //POST
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

@@ -9,7 +9,7 @@ define('ROOT_PATH', __DIR__);
 define('temp', 'thegioididong');
 define('Temp', 'Thegioididong');
 
-define('TempAsset', 'frontend\views\template\\'.temp.'\\'.Temp.'Asset');
+define('TempAsset', 'frontend\modules\\'.temp.'\\views\\'.Temp.'Asset');
 
 require(__DIR__ . '/vendor/autoload.php');
 require(__DIR__ . '/vendor/aabcsoft/aabc2/Aabc.php');
