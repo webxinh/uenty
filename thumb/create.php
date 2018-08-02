@@ -2,7 +2,11 @@
 // ob_start('ob_gzhandler');   
 // ob_start(); 
 // die;
-require('size.php');
+require('../index-template.php');
+$config_main = require(ROOT_PATH . '/frontend/modules/'.temp.'/config/main.php');
+$size_backend = require('size.php');
+
+$size = array_merge($size_backend, $config_main['size-image']);
 	
 
 if(isset($_GET['i']) && isset($_GET['h']) && isset($_GET['w'])){

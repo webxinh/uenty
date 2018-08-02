@@ -6,6 +6,8 @@ ob_start('ob_gzhandler');
 defined('AABC_DEBUG') or define('AABC_DEBUG', true);
 defined('AABC_ENV') or define('AABC_ENV', 'dev');
  
+require('../index-template.php');
+
 define('ADMIN','/ad/');
 
 require(__DIR__ . '/../vendor/autoload.php');

@@ -242,7 +242,7 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 		if(!empty($return)){
 			$size = $type;
 			$size = str_replace('x','/',$size);
-			if($size == 'array'){
+			if($size == 'array' || empty($size)){
 				$return = Url::to($return['fulllink'],true); //Trả về link full		
 			}else{
 				$return = Url::to('/thumb/'.$size.'/'.$return['filename'],true); //Trả về filename
