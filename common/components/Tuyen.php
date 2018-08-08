@@ -222,8 +222,7 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
                 $return = $tree;
             }
 		}
-
-
+		
 		if(empty($return)){
 			if(($type == 'array') && !is_array($return)) $return = [];
 			if($type == 'string') $return = '';
@@ -282,16 +281,57 @@ public static function _show_text($a)
     return $html;
 }
 
+
+
 public static function _show_link($a)
 {
-	if(empty($a)) return '';	
-	$arr = preg_split( '/[*;\n]+/', $a );
-	$html = '';
-	foreach ($arr as $k_a => $v_a) {
-		$v_a = trim($v_a);
-        $html .= ($k_a == 0?'':' - ') .'<span><a href="'.$v_a.'">'.$v_a.'</a></span>';
-    }
-    return $html;
+	$url = json_decode($a,true);
+	$c = '';
+	if($url['s'] == 1){
+		$c = '/';
+	}
+	elseif($url['s'] == 2){
+
+	}
+	elseif($url['s'] == 3){
+
+	}
+	elseif($url['s'] == 4){
+		
+	}
+	elseif($url['s'] == 5){
+		
+	}
+	elseif($url['s'] == 6){
+		
+	}
+	elseif($url['s'] == 7){
+		$c = $url['c'];
+	}
+	elseif($url['s'] == 8){
+		$c = $url['c'];
+		$dm = Tuyen::_dulieu('danhmuc',$c);
+		if(isset($dm['dm_link'])){
+			if(empty($dm['dm_link'])) $dm['dm_link'] = 'thong-so';
+			$c = $dm['dm_link'].'-t1'.$c.'.html';		
+		}
+	}
+	elseif($url['s'] == 9){
+		
+	}
+	elseif($url['s'] == 10){
+		
+	}
+
+	return $c;
+	// if(empty($a)) return '';	
+	// $arr = preg_split( '/[*;\n]+/', $a );
+	// $html = '';
+	// foreach ($arr as $k_a => $v_a) {
+	// 	$v_a = trim($v_a);
+ //        $html .= ($k_a == 0?'':' - ') .'<span><a href="'.$v_a.'">'.$v_a.'</a></span>';
+ //    }
+ //    return $html;
 }
 
 
