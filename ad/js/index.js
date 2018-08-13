@@ -1534,7 +1534,7 @@ function totop() {
 function changea(pjid) {	
 	$('#pj'+pjid+' a').each(function( index, value ) {          
         var urla = $(this).attr('href');
-        $(this).attr('href', 'javascript:void(0)');
+        if(!$(this).hasClass('not-href')) $(this).attr('href', 'javascript:void(0)');
         urla = decodeURIComponent(urla);
 
         var res = urla.match(RegExp("\\[[0-9]\\]", "g")); 

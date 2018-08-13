@@ -283,7 +283,17 @@ public static function _show_text($a)
 
 
 
-public static function _show_link($a)
+
+public static function _get_link($link = '', $id = '', $type = '')
+{
+	$config_main = array_merge(
+	    require(ROOT_PATH . '/frontend/modules/'.temp.'/config/main.php')
+	);
+	return (isset($config_main['link'][$type]))?($link .'-'. $config_main['link'][$type].$id.'.html'):'';	
+}
+
+
+public static function _show_link($a)// Hiện thị link từ các module
 {
 	$url = json_decode($a,true);
 	$c = '';
@@ -334,6 +344,55 @@ public static function _show_link($a)
  //    return $html;
 }
 
+
+
+public static function _show_title($a)// Hiện thị title
+{	
+	if(isset($a['dm_ten_ob'])) $url = $a['dm_ten_ob'];
+	if(isset($a['ten_ob'])) $url = $a['ten_ob'];
+
+	if(isset($url)){
+		if(!is_array($url)) $url = json_decode($url,true);		
+
+		$c = '';
+		if($url['s'] == 1){
+			$c = $url['c'];
+		}	
+		elseif($url['s'] == 3){
+			$c = $url['c'];
+			$dm = Tuyen::_dulieu('danhmuc',$c);
+			$c = $dm['dm_ten'];
+		}
+		elseif($url['s'] == 4){
+			$c = $url['c'];
+			$sp = Tuyen::_dulieu('sanpham',$c);
+			$c = $sp['sp_tensp'];
+		}
+		elseif($url['s'] == 5){
+			$c = $url['c'];
+			$dm = Tuyen::_dulieu('danhmuc',$c);
+			$c = $dm['dm_ten'];
+		}
+		elseif($url['s'] == 6){
+			$c = $url['c'];
+			$sp = Tuyen::_dulieu('sanpham',$c);
+			$c = $sp['sp_tensp'];
+		}
+		elseif($url['s'] == 8){
+			$c = $url['c'];
+			$dm = Tuyen::_dulieu('danhmuc',$c);
+			$c = $dm['dm_ten'];
+		}
+	}
+
+	if(empty($c)){
+		if(isset($a['dm_ten'])) $c = $a['dm_ten'];
+		if(isset($a['label'])) $c = $a['label'];
+	}
+
+	return $c;
+	
+}
 
 
 

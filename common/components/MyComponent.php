@@ -380,6 +380,7 @@ class MyComponent extends Component {
       foreach($array as $key => $row) {
         if ($row['dm_idcha'] == $p) {
           $r[$row['dm_id']]['label'] = $row['dm_ten'];
+          $r[$row['dm_id']]['ten_ob'] = $row['dm_ten_ob'];
           $r[$row['dm_id']]['url'] = $row['dm_link'];
           $r[$row['dm_id']]['icon'] = $row['dm_icon'];
           $r[$row['dm_id']]['background'] = $row['dm_background'];

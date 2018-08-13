@@ -267,10 +267,12 @@ $(document).on('change', 'ul.pagination li.active input', function() {
 
 
 //Click vào các link a
-$(document).on('click', '.pj a', function() {
-    if(typeof event !== 'undefined'){     
-        clicka(event.target,this);
-    }
+$(document).on('click', '.pj a:not(.not-href)', function() {
+    // if(!$(this).hasClass('not-href')){
+        if(typeof event !== 'undefined'){     
+            clicka(event.target,this);
+        }
+    // }
 });
 
 
