@@ -9,6 +9,8 @@ use backend\models\Danhmuc;
 use backend\models\Sanpham;
 use backend\models\Sanphamngonngu;
 
+use frontend\models\SanphamFront;
+
 class Tuyen { 
 
 public function _icon($s = '')
@@ -253,6 +255,16 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 	}
 
 
+	if($controller == 'sanpham'){
+
+		
+
+		$ab = new SanphamFront();
+		$ab->attributes = $return;
+		$ab->update();
+		return $ab;
+	}
+
 	return $return;
 }
 
@@ -394,12 +406,32 @@ public static function _show_title($a)// Hiện thị title
 	
 }
 
+public static function _show_gia($a) //
+{
+	if(is_numeric($a)){
+		return number_format($a) . self::_show_donvitiente() ;
+	}
+	return $a;
+}
+
+
+public static function _show_donvitiente() //
+{
+	$donvitiente = self::_dulieu('cauhinh', Cauhinh::tientetinhgia);
+	return $donvitiente['child'][$donvitiente['default']];
+}
+
+
+public static function _show_conhang($a = '') //
+{
+	return Sanpham::getConhangLabel($a);
+}
 
 
 public function template()
 {	
 	//Trả về tên template
-	return 'ngocanh';
+	return temp;
 }
 
 public function _dir()
