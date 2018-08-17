@@ -1,3 +1,15 @@
+//Next step ở trong form sản phẩm
+$(document).on('click','.next-step',function(){
+    next_step(this)
+})
+
+
+
+//Check thông số ở trong sp, mở thêm more info
+
+$(document).on('click','.c_ts',function(){
+    more_info(this)
+})
 
 //Xóa tiền tệ
 $(document).on('click','.tttg-remove',function(){

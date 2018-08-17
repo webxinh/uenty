@@ -1446,6 +1446,18 @@ li.alway>label>span {
     left: -30px;
 }
 
+i.haut.haut_all{color: #1aa8e9 !important;}
+i.haut{
+    color: #f19108 !important;
+    font-weight: normal !important;
+    font-size: 12px !important;
+    position: relative !important;
+    top: 0 !important;
+    right: -5px !important;
+    left: auto !important;
+}
+
+
 .mulr-body ul li span {
     position: absolute;
     padding: 8px 0 0 0;
@@ -5778,6 +5790,12 @@ form div.required label.form-label:after, form div.required label.control-label:
 .select2-selection__placeholder {
     font-size: 13px;
 }
+
+
+.next-step{
+    position: absolute;margin: 15px 0 0 0;
+}
+
 
 
 /* remove sp dm */

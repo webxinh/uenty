@@ -1,3 +1,33 @@
+function next_step(this_){    
+    var parent_ = $(this_).parent().parent().parent().parent()
+    var active = parent_.find('>ul.nav.nav-tabs>li.active')
+    var next = active.next()
+    next.find('>a').click();    
+}
+
+
+
+function more_info(this_){    
+    var parent_div = $(this_).parent().parent()
+
+    var class_parent_div = parent_div.attr('class')
+
+    var more_info_all = parent_div.find('input.ts_more')
+
+    var parent_label = $(this_).parent()
+    var more_info = parent_label.find('>input.ts_more')
+
+    if($(this_)[0].checked){
+        if(class_parent_div == 'ts-r'){
+            more_info_all.addClass('hide')
+        }
+        more_info.removeClass('hide')
+    }else{
+        more_info.addClass('hide')
+    }
+
+}
+
 
 
 function addpbsp_option(e, current){
@@ -861,9 +891,21 @@ function selectmur(id) {
                     // thistext = listchinhsach;
 
                 }else{
-                    listchinhsach = '';                    
+                    listchinhsach = '';  
+                    // listchinhsach = d_lcs + '=0';                  
                 }
 
+
+
+                //Xu ly phần chính sách, khuyến mại thêm hậu tố (tất cả sp, chỉ danh mục sp)
+                if(typeof(thistext.split('%&')[1]) !== 'undefined'){  
+                    _fulltext = thistext;               
+                    thistext = thistext.split('%&')[0];
+                    hauto = _fulltext.replace(thistext+'%&','');
+                    hauto = hauto.replace(/%&/g,' ');                     
+                }else{
+                    hauto = '';                      
+                }
 
                 
 
@@ -925,7 +967,7 @@ function selectmur(id) {
 
 
                 if($(this).is(':checked')){
-                    stringselect += liyesno_start + enxss(thistext.replace(/\(Giá trị\)/g, "")) + liyesno_end;
+                    stringselect += liyesno_start + enxss(thistext.replace(/\(Giá trị\)/g, ""))+hauto + liyesno_end;
 
                    
                     countcheck += 1; 
@@ -949,12 +991,12 @@ function selectmur(id) {
                     } 
                      
                     if(typeof dicon === 'undefined'){
-                        $('#'+idpa+'-pa'+' .mulr-body ul').append('<li title="'+giatrih6_1+enxss(thistext.replace(/\|----- /g, ""))+giatrih6_2+'" class="'+alway+' '+colo+' ichecked"><label  class="'+check_tn_class+'"><input '+dcc+' class="ip'+idcsdm+value+'" '+listchinhsach+'  checked type="'+type+'" '+attrname+' value="'+value+'"><span>'+enxss(thistext)+'</span>'+s_level+addchild+'</label>'+alwayelement+'</li>');
+                        $('#'+idpa+'-pa'+' .mulr-body ul').append('<li class="'+alway+' '+colo+' ichecked"><label  class="'+check_tn_class+'"><input '+dcc+' class="ip'+idcsdm+value+'" '+listchinhsach+'  checked type="'+type+'" '+attrname+' value="'+value+'"><span>'+enxss(thistext)+hauto+'</span>'+s_level+addchild+'</label>'+alwayelement+'</li>');
                     }else{
-                        _html = '<li title="'+giatrih6_1+enxss(thistext.replace(/\|----- /g, ""))+giatrih6_2+'" class="'+alway+' '+colo+' ichecked">';
+                        _html = '<li class="'+alway+' '+colo+' ichecked">';
                         _html += '<label  class="s_icon '+check_tn_class+'"><input '+dcc+' class="ip'+idcsdm+value+'" '+listchinhsach+'  checked type="'+type+'" '+attrname+' value="'+value+'">';
                         _html += '<div class="fa-2x '+value+'"></div>';
-                        _html += '<span>'+enxss(thistext)+'</span>';
+                        _html += '<span>'+enxss(thistext)+hauto+'</span>';
                         _html += s_level+addchild+'</label>'+alwayelement+'</li>';
                         $('#'+idpa+'-pa'+' .mulr-body ul').append(_html);
                     }   
@@ -962,19 +1004,18 @@ function selectmur(id) {
 
 
                 }else{
-                    if(dem == 0 && type == 'radio' && dc != 'one'){
-                        
+                    if(dem == 0 && type == 'radio' && dc != 'one'){                        
                         $('#'+idpa+'-pa' +' button.mulr-head ul').html(thistext);
-                        $('#'+idpa+'-pa'+' .mulr-body ul').append('<li title="'+enxss(thistext.replace(/\|----- /g, ""))+'"><label><input checked type="'+type+'" '+attrname+' value="'+value+'"><span>'+enxss(thistext)+'</span></label></li>');
+                        $('#'+idpa+'-pa'+' .mulr-body ul').append('<li ><label><input checked type="'+type+'" '+attrname+' value="'+value+'"><span>'+enxss(thistext)+hauto+'</span></label></li>');
                     }else{ 
 
                         if(typeof dicon === 'undefined'){
-                            $('#'+idpa+'-pa'+' .mulr-body ul').append('<li title="'+enxss(thistext.replace(/\|----- /g, ""))+'" class="'+alway+' '+colo+'"><label class="'+check_tn_class+'"><input '+dcc+' class="ip'+idcsdm+value+'" '+listchinhsach+'  type="'+type+'" '+attrname+' value="'+value+'"><span>'+nhomh4_1+giatrih6_1+enxss(thistext)+thongso_2+giatrih6_2+nhomh4_2+'</span>'+s_level+addchild+'</label>'+alwayelement+'</li>'); 
+                            $('#'+idpa+'-pa'+' .mulr-body ul').append('<li class="'+alway+' '+colo+'"><label class="'+check_tn_class+'"><input '+dcc+' class="ip'+idcsdm+value+'" '+listchinhsach+'  type="'+type+'" '+attrname+' value="'+value+'"><span>'+nhomh4_1+giatrih6_1+enxss(thistext)+hauto+thongso_2+giatrih6_2+nhomh4_2+'</span>'+s_level+addchild+'</label>'+alwayelement+'</li>'); 
                         }else{
-                            _html = '<li title="'+enxss(thistext.replace(/\|----- /g, ""))+'" class="'+alway+' '+colo+'">';
+                            _html = '<li class="'+alway+' '+colo+'">';
                             _html += '<label class="s_icon '+check_tn_class+'"><input '+dcc+' class="ip'+idcsdm+value+'" '+listchinhsach+'  type="'+type+'" '+attrname+' value="'+value+'">';
                             _html += '<div class="fa-2x '+value+'"></div>';
-                            _html += '<span>'+nhomh4_1+giatrih6_1+enxss(thistext)+thongso_2+giatrih6_2+nhomh4_2+'</span>';
+                            _html += '<span>'+nhomh4_1+giatrih6_1+enxss(thistext)+hauto+thongso_2+giatrih6_2+nhomh4_2+'</span>';
                             _html += s_level+addchild+'</label>'+alwayelement+'</li>';
                             $('#'+idpa+'-pa'+' .mulr-body ul').append(_html);
                         }                        
@@ -1032,38 +1073,32 @@ function changeinputmulr(ev,current) {
         // }
     }
 
+    // console.log('changeinputmulr')
+
     dlcs = $(current).attr(d_lcs);
     if(typeof(dlcs) !== 'undefined' && dlcs != ''){  
         arrdlcs = dlcs.replace(/#@/g,'');
         arrdlcs = arrdlcs.split(' ');
-        for (var i_arrdlcs = arrdlcs.length - 1; i_arrdlcs >= 0; i_arrdlcs--) {
-            dclickcount = $('.ipcsdm'+arrdlcs[i_arrdlcs]).attr(d_cc);
-            // alert(dclickcount);
-            if(typeof(dclickcount) === 'undefined'){
-                // alert($('.ipcsdm'+arrdlcs[i]).attr('checked'));
-                if($('input.ipcsdm'+arrdlcs[i_arrdlcs]).attr('checked')){
-                }else{
-                    if($(current).is(':checked')){
-                        $('input.ipcsdm'+arrdlcs[i_arrdlcs]).attr(d_cc, '1');
-                        $('input.ipcsdm'+arrdlcs[i_arrdlcs]).prop( "checked", true );
-                        changeinputmulr_child(divparents,'input.ipcsdm'+arrdlcs[i_arrdlcs]);
-                    }
-                }
-            }else{  
-                if($(current).is(':checked')){
-                    dclickcount = (parseInt(dclickcount) + 1);
-                }else{
-                    dclickcount = (parseInt(dclickcount) - 1);                    
-                }
-                if(dclickcount == 0){
-                    $('input.ipcsdm'+arrdlcs[i_arrdlcs]).removeAttr(d_cc);
-                    $('input.ipcsdm'+arrdlcs[i_arrdlcs]).removeAttr('checked');
-                    $('input.ipcsdm'+arrdlcs[i_arrdlcs]).prop( "checked", false );
-                    changeinputmulr_child(divparents,'.ipcsdm'+arrdlcs[i_arrdlcs]); 
-                }else{
-                    $('input.ipcsdm'+arrdlcs[i_arrdlcs]).attr(d_cc,dclickcount);    
-                }
+
+        $('input[class*=ipcsdm]').each(function(){
+            var ipcsdm_name = $(this).attr('name')
+            if(typeof ipcsdm_name !== 'undefined'){ //Nếu không có name (tức là cái tất cả)
+                var ipcsdm_class = $(this).attr('class')                
+                $(this).removeAttr('checked');
+                $(this).prop( "checked", false );
+                changeinputmulr_child(divparents,this);
             }
+        })
+
+        for (var i_arrdlcs = arrdlcs.length - 1; i_arrdlcs >= 0; i_arrdlcs--) {
+            var v_dlcs = arrdlcs[i_arrdlcs];            
+            if($('input.ipcsdm'+v_dlcs).attr('checked')){
+            }else{
+                if($(current).is(':checked')){
+                    $('input.ipcsdm'+v_dlcs).prop( "checked", true );
+                    changeinputmulr_child(divparents,'input.ipcsdm'+v_dlcs);
+                }
+            }           
         };
         
     }
@@ -1142,11 +1177,12 @@ function changeinputmulr_child(ev,current) {
 
     $('#'+idcha +' .mulr-body input:checked').each (function (index) {        
                     // stringselect +=  (index == 0 ? '': ', ') + $(this).parent().find('span').html().replace(/\(Giá trị\)/g, "");
-                    
+
+
                     if($(this).parent().find('span').html().indexOf('<i>Tất cả</i>') >= 0 ){
-                        stringselect += liyesno_start + enxss($(this).parent().find('span').html().replace(/\(Giá trị\)/g, "")) + liyesno_end;
+                        stringselect += liyesno_start + /*enxss*/($(this).parent().find('span').html().replace(/\(Giá trị\)/g, "")) + liyesno_end;
                     }else{
-                        stringselect += liyesno_start + enxss($(this).parent().find('span').text().replace(/\(Giá trị\)/g, "")) + liyesno_end;    
+                        stringselect += liyesno_start + /*enxss*/($(this).parent().find('span')./*text*/html().replace(/\(Giá trị\)/g, "")) + liyesno_end;    
                     }
                     
     })

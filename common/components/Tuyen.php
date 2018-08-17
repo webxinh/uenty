@@ -8,6 +8,7 @@ use backend\models\Image;
 use backend\models\Danhmuc;
 use backend\models\Sanpham;
 use backend\models\Sanphamngonngu;
+use backend\models\Sanphamdanhmuc;
 
 use frontend\models\SanphamFront;
 
@@ -175,12 +176,19 @@ public static function _dir_icon($s = '')
 public static function _dulieu($controller='',$id = '',$type = 'array')
 {		
 	// $s = $controller . $id . Cauhinh::template();
+	$bk_id = $id;//backup	
+	if($controller == 'spdm'){
+		$controller = 'tssp';
+		$id = str_replace('-','000',$id);
+	}
+
 	$s = $controller . $id;
 	$cache = Aabc::$app->dulieu;
 
 	if($controller == 'spnn'){
 		$s = $s . '01';
 	}
+
 
 	$return = $cache->get($s);//Lấy từ cache ra
 
@@ -189,6 +197,14 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 		if($controller == 'cauhinh'){
 			$cauhinh = (Cauhinh::M)::find()->where(['ch_key' => $id])->one();
 			if($cauhinh) $return = Cauhinh::cache($cauhinh);
+		}
+		elseif($controller == 'tssp'){	
+			$tssp = explode('-',$bk_id);
+			$spdm = Sanphamdanhmuc::find()
+								->andWhere(['spdm_id_sp' => $tssp[0]])
+								->andWhere(['spdm_id_danhmuc' => $tssp[1]])
+								->one();
+			if($spdm) $return = Sanphamdanhmuc::cache($spdm);
 		}
 		elseif($controller == 'spnn'){			
 			$spnn = Sanphamngonngu::find()
