@@ -852,7 +852,11 @@ function selectmur(id) {
                     idcsdm = 'csdm';
                     
                     if(thistext.indexOf('<i>Tất cả</i>') >= 0){
-                        attrname = '';
+                        attrname = ' data-cs="all" ';
+                    }
+
+                    if(thistext.indexOf('Áp dụng riêng cho Danh mục sản phẩm') >= 0){
+                        attrname = ' data-cs="dm" ';
                     }
 
                     countiddmcs = 0;
@@ -1081,9 +1085,8 @@ function changeinputmulr(ev,current) {
         arrdlcs = arrdlcs.split(' ');
 
         $('input[class*=ipcsdm]').each(function(){
-            var ipcsdm_name = $(this).attr('name')
-            if(typeof ipcsdm_name !== 'undefined'){ //Nếu không có name (tức là cái tất cả)
-                var ipcsdm_class = $(this).attr('class')                
+            var data_cs = $(this).data('cs')
+            if(data_cs != 'all'){ // Những cái nào ko phải áp dụng cho tất cả.                
                 $(this).removeAttr('checked');
                 $(this).prop( "checked", false );
                 changeinputmulr_child(divparents,this);

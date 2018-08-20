@@ -10,6 +10,10 @@ use backend\models\Sanpham;
 use backend\models\Sanphamngonngu;
 use backend\models\Sanphamdanhmuc;
 
+use backend\models\Chinhsach;
+use backend\models\Danhmucchinhsach;
+use backend\models\Sanphamchinhsach;
+
 use frontend\models\SanphamFront;
 
 class Tuyen { 
@@ -181,6 +185,13 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 		$controller = 'tssp';
 		$id = str_replace('-','000',$id);
 	}
+	elseif($controller == 'csdm'){		
+		$id = str_replace('-','000',$id);
+	}
+	elseif($controller == 'cssp'){		
+		$id = str_replace('-','000',$id);
+	}
+
 
 	$s = $controller . $id;
 	$cache = Aabc::$app->dulieu;
@@ -198,7 +209,32 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 			$cauhinh = (Cauhinh::M)::find()->where(['ch_key' => $id])->one();
 			if($cauhinh) $return = Cauhinh::cache($cauhinh);
 		}
-		elseif($controller == 'tssp'){	
+
+		elseif($controller == 'cs'){
+			$model = Chinhsach::find()->where(['cs_id' => $id])->one();			
+			if($model) $return = Chinhsach::cache($model);
+		}
+
+		elseif($controller == 'cssp'){// Chính sách áp dụng cho từng sản phẩm
+			$a = explode('-',$bk_id);
+			$model = Sanphamchinhsach::find()
+								->andWhere(['spcs_id_chinhsach' => $a[0]])
+								->andWhere(['spcs_id_sp' => $a[1]])
+								->one();
+			if($model) $return = Sanphamchinhsach::cache($model);
+		}
+
+
+		elseif($controller == 'csdm'){// Chính sách áp dụng cho danh mục
+			$a = explode('-',$bk_id);
+			$model = Danhmucchinhsach::find()
+								->andWhere(['dmcs_id_chinhsach' => $a[0]])
+								->andWhere(['dmcs_id_danhmuc' => $a[1]])
+								->one();
+			if($model) $return = Danhmucchinhsach::cache($model);
+		}
+
+		elseif($controller == 'tssp'){// Thông số sản phẩm	
 			$tssp = explode('-',$bk_id);
 			$spdm = Sanphamdanhmuc::find()
 								->andWhere(['spdm_id_sp' => $tssp[0]])
@@ -206,7 +242,7 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 								->one();
 			if($spdm) $return = Sanphamdanhmuc::cache($spdm);
 		}
-		elseif($controller == 'spnn'){			
+		elseif($controller == 'spnn'){	 //Sản phẩm ngôn ngữ		
 			$spnn = Sanphamngonngu::find()
 								->andWhere(['spnn_idsanpham' => $id])
 								->andWhere(['spnn_idngonngu' => 1])

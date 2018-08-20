@@ -5797,6 +5797,47 @@ form div.required label.form-label:after, form div.required label.control-label:
 }
 
 
+.select2-container--krajee .select2-selection--multiple .select2-search--inline .select2-search__field{
+    color: #666;
+    width: 100% !important;
+}
+
+
+.select2-container--krajee .select2-results__option--highlighted[aria-selected],
+.select2-container--krajee .select2-results__option[aria-selected=true] {
+    background-color: #e1e1e1ba !important;
+    color: #333 !important;
+}
+
+.select2-container--krajee li.select2-results__option {    
+    border-top: 1px solid #8c8c8c40;
+    padding: 6px 6px 6px 25px;
+    position: relative;
+}
+
+.select2-container--krajee li.select2-results__option:after {
+content: '';
+    width: 15px;
+    height: 8px;
+    position: absolute;
+    top: 9px;
+    left: 5px;
+    border: 3px solid #bfbfbf;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 1;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-50deg);
+}
+
+
+.select2-container--krajee .select2-results__option[aria-selected=true]:after{
+    border: 3px solid #249e0e;
+    border-top: none;
+    border-right: none;
+}
+
 
 /* remove sp dm */
 span.spdm-remove {
