@@ -1513,18 +1513,28 @@ function buttonrecycleall(ev,current) {
                 window.open('http://' + $('tr[data-key='+value+']>td:nth-child(2)').html() );
             });
         }else{
-        	var valu = '';
+        	var valu = '';            
         	if(idthaotac == 1){valu = '2';}
         	if(idthaotac == 2){valu = '1';}
         	if(idthaotac == 3){valu = '1';}
-
-            
+                       
         	if(idthaotac != ''){  
-                if(idthaotac == 11){
+                if(idthaotac == 11){//Sửa tên ảnh
                     valu = '11';
                     current = $('#sel'+tenid+' option:selected');                    
                     buttonmodal(current,'',ids);
-                }else{  	        
+                }
+                else if(idthaotac == 21){//Sửa chuyên mục của bài viết
+                    valu = '21';
+                    current = $('#sel'+tenid+' option:selected');                    
+                    buttonmodal(current,'',ids);
+                }
+                else if(idthaotac == 22){//Sửa Danh muc san pham của bài viết
+                    valu = '22';
+                    current = $('#sel'+tenid+' option:selected');                    
+                    buttonmodal(current,'',ids);
+                }
+                else{
     		        loadimg();
     		        $.ajax({
     		            url: creurl(current),

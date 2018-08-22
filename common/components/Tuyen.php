@@ -191,6 +191,9 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 	elseif($controller == 'cssp'){		
 		$id = str_replace('-','000',$id);
 	}
+	elseif($controller == 'baiviet'){
+		$controller = 'sanpham';
+	}
 
 
 	$s = $controller . $id;
