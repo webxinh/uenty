@@ -73,7 +73,7 @@ $(document).on('click', '.cmau', function() {
 // }); 
 
 
-//Khi list ảnh thay đổi
+//Thay đổi ảnh cove sản phẩm
 $(document).on('DOMSubtreeModified', "#editable", function(){
     var imgfirst = $('#editable li').first().find('img');
     var link = $(imgfirst).attr('src');
@@ -85,6 +85,17 @@ $(document).on('DOMSubtreeModified', "#editable", function(){
     }
 });
 
+//Thay đổi ảnh cove thông số sản phẩm
+$(document).on('DOMSubtreeModified', "#editable_ts", function(){
+    var imgfirst = $('#editable_ts li').first().find('img');
+    var link = $(imgfirst).attr('src');
+    if(typeof link !== 'undefined'){
+        link = link.replace('thumb/75/75/','uploads/');
+        $('#imgcove_ts>.image').html('<img src="'+link+'">');
+    }else{
+        $('#imgcove_ts>.image').html('');
+    }
+});
 
 
 
