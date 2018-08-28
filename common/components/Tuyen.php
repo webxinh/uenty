@@ -450,6 +450,10 @@ public static function _show_title($a)// Hiện thị title
 			$dm = Tuyen::_dulieu('danhmuc',$c);
 			$c = $dm['dm_ten'];
 		}
+		elseif($url['s'] == 9){					
+			$list = Cauhinh::Thongtincauhinh();
+			$c = $list[$url['c']];
+		}
 	}
 
 	if(empty($c)){
