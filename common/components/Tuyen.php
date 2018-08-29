@@ -194,6 +194,9 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 	elseif($controller == 'baiviet'){
 		$controller = 'sanpham';
 	}
+	elseif($controller == 'khuyenmai'){
+		$controller = 'cs';
+	}
 
 
 	$s = $controller . $id;
@@ -469,6 +472,25 @@ public static function _show_gia($a) //
 {
 	if(is_numeric($a)){
 		return number_format($a) . self::_show_donvitiente() ;
+	}
+	return $a;
+}
+
+public static function _show_gia_discount($a, $amduong = '') //
+{
+	if(is_numeric($a)){
+		$a = (int)($amduong.$a);
+
+		if($a > 0){
+			$tiento = '<div class="up-km">+';
+		}
+		elseif($a < 0){
+			$tiento = '<div class="down-km">';
+		}
+		else{
+			$tiento = '<div>';
+		}
+		return  $tiento . number_format($a) . self::_show_donvitiente() .'</div>';
 	}
 	return $a;
 }
