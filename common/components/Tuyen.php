@@ -479,7 +479,12 @@ public static function _show_gia($a) //
 	return $a;
 }
 
-public static function _show_gia_discount($a, $amduong = '') //
+public static function _show_gia_discount($a, $amduong = '', $phantram = 1) //
+/*
+	$a: gia trị truyền vào
+	$amduong: dấu + hay -
+	$phantram: 1 là số cụ thể, 2 là phần trăm 
+*/
 {
 	if(is_numeric($a)){
 		$a = (int)($amduong.$a);
@@ -493,7 +498,7 @@ public static function _show_gia_discount($a, $amduong = '') //
 		else{
 			return '';
 		}
-		return  $tiento . number_format($a) . self::_show_donvitiente() .'</div>';
+		return  $tiento . number_format($a) . (($phantram == 2)?'%':self::_show_donvitiente()) .'</div>';
 	}
 	return $a;
 }
