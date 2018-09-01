@@ -198,7 +198,7 @@ class MyComponent extends Component {
               }elseif ($songay == 1) {
                   return 'Hôm qua';
               }else{
-                  return date("Y-m-d", strtotime($date)); 
+                  return $date; 
               }
         }
 
