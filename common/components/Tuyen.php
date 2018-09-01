@@ -181,6 +181,7 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 {		
 	// $s = $controller . $id . Cauhinh::template();
 	$bk_id = $id;//backup	
+	$bk_controller = $controller;//backup	
 	if($controller == 'spdm'){
 		$controller = 'tssp';
 		$id = str_replace('-','000',$id);
@@ -313,10 +314,12 @@ public static function _dulieu($controller='',$id = '',$type = 'array')
 	}
 
 
-	if($controller == 'sanpham'){
-
-		
-
+	if($bk_controller == 'sanpham'){
+		$ab = new SanphamFront();
+		$ab->attributes = $return;
+		$ab->update();
+		return $ab;
+	}elseif($bk_controller == 'baiviet'){
 		$ab = new SanphamFront();
 		$ab->attributes = $return;
 		$ab->update();
@@ -488,7 +491,7 @@ public static function _show_gia_discount($a, $amduong = '') //
 			$tiento = '<div class="down-km">';
 		}
 		else{
-			$tiento = '<div>';
+			return '';
 		}
 		return  $tiento . number_format($a) . self::_show_donvitiente() .'</div>';
 	}
