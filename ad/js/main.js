@@ -104,7 +104,9 @@ function autoheight(a) {
 function openmenu(event){
 	$('.omd').hide();		
 	if(typeof event.toElement !== 'undefined'){
-		if(event.toElement.className == 'omc'){	
+
+		if(event.toElement.classList.contains('omc')){	 //Có chứa class omc
+		// if(event.toElement.className == 'omc'){	 //Là class omc
 			idmodal = $('#'+event.toElement.id).parents('.modal').attr('id');			
 			if(typeof(idmodal) == 'undefined'){
 				idmodal = 'modal';
