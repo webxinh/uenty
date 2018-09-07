@@ -4573,6 +4573,7 @@ label {
     height: 40px;
     background: #bcd2e7;
     padding: 5px 20px;
+    z-index: 9;
 }
 
 .form-group.right {
@@ -5561,6 +5562,7 @@ i.hdtip {
 }
 .stg legend {
     width: calc(100% - 20px);
+    padding: 6px 8px;
 }
 
 
@@ -5572,7 +5574,7 @@ fieldset {
 legend {
     border: 1px solid #ddd;
     font-size: 12px;
-    padding: 2px 8px;
+    padding: 6px 8px;
     font-weight: bold;
     margin: 0 0 0 10px;
     background: #2499ce;

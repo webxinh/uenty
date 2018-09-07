@@ -1,3 +1,29 @@
+
+//Xóa nhóm huyện/quận (Tiền ship)
+$(document).on('click','.tt-remove',function(){                            
+    if(confirm('Bạn có muốn xóa nhóm giá ship?')){
+        $(this).parents('.tttg').remove()
+    }
+})
+//Xóa tỉnh/thành (Tiền ship)
+$(document).on('click','.t-remove',function(){                            
+    if(confirm('Bạn có muốn xóa tỉnh/thành phố này?')){
+        $(this).parents('.pa-i').remove()
+    }
+})
+
+//Add quan/huyen
+$(document).on('click','.tt-add',function(e){
+    tt_add(this,e)
+})
+//Add Tinh/thanh pho
+$(document).on('click','.t-add',function(e){
+    t_add(this, e)
+})
+
+
+
+
 //Next step ở trong form sản phẩm
 $(document).on('click','.next-step',function(){
     next_step(this)
