@@ -1,4 +1,12 @@
 
+//Xóa Hình thức thanh toán
+$(document).on('click','.del-hhtt',function(){                            
+    if(confirm('Bạn có muốn xóa hình thức thanh toán?')){
+        $(this).parents('.stg ').remove()
+    }
+})
+
+
 //Xóa nhóm huyện/quận (Tiền ship)
 $(document).on('click','.tt-remove',function(){                            
     if(confirm('Bạn có muốn xóa nhóm giá ship?')){
